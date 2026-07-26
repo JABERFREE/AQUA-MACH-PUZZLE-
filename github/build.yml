@@ -13,12 +13,14 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up Node.js
-      uses: actions/setup-node@v4
+      uses: setup-node@v4
       with:
         node-version: '20'
 
     - name: Install dependencies
-      run: npm ci
+      run: |
+        npm install
+        npm install @capacitor/cli @capacitor/core
 
     - name: Run Capacitor sync
-      run: npx @capacitor/cli sync ios
+      run: npx cap sync ios
