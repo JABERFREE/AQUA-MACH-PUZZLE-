@@ -17,7 +17,7 @@ jobs:
       with:
         node-version: '20'
 
-    - name: Install dependencies & Build
+    - name: Install dependencies & Build Web
       run: |
         npm install
         npm run build --if-present
@@ -29,12 +29,13 @@ jobs:
         ruby-version: '3.1'
         bundler-cache: true
 
-    - name: Install Fastlane
+    - name: Install Fastlane & Fix Permissions
       run: |
         cd ios
         bundle init || true
         echo "gem 'fastlane'" >> Gemfile
         bundle install
+        chmod +x vendor/bundle/ruby/*/bin/* || true
 
     - name: Publish to App Store Connect
       env:
