@@ -1,12 +1,12 @@
-name: Build iOS Web App
+name: Build and Deploy to App Store
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: macos-latest
 
     steps:
     - name: Checkout repository
@@ -17,8 +17,30 @@ jobs:
       with:
         node-version: '20'
 
-    - name: Install dependencies
-      run: npm install
+    - name: Install dependencies & Build
+      run: |
+        npm install
+        npm run build --if-present
+        npx cap sync ios
 
-    - name: Build project
-      run: npm run build --if-present
+    - name: Set up Ruby for Fastlane
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+        bundler-cache: true
+
+    - name: Install Fastlane
+      run: |
+        cd ios
+        bundle init || true
+        echo "gem 'fastlane'" >> Gemfile
+        bundle install
+
+    - name: Publish to App Store Connect
+      env:
+        APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+        APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+        APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+      run: |
+        cd ios
+        bundle exec fastlane release
