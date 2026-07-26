@@ -18,12 +18,7 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      run: |
-        npm install
-        npm install -g @capacitor/cli @capacitor/core
-
-    - name: Build web assets
-      run: npm run build --if-present
+      run: npm ci
 
     - name: Run Capacitor sync
-      run: npx cap sync ios
+      run: npx @capacitor/cli sync ios
