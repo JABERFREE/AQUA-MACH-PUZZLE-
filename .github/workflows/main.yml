@@ -23,19 +23,9 @@ jobs:
         npm run build --if-present
         npx cap sync ios
 
-    - name: Set up Ruby for Fastlane
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.1'
-        bundler-cache: true
-
-    - name: Install Fastlane & Fix Permissions
+    - name: Install Fastlane Globally
       run: |
-        cd ios
-        bundle init || true
-        echo "gem 'fastlane'" >> Gemfile
-        bundle install
-        chmod +x vendor/bundle/ruby/*/bin/* || true
+        brew install fastlane
 
     - name: Publish to App Store Connect
       env:
@@ -44,4 +34,4 @@ jobs:
         APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
       run: |
         cd ios
-        bundle exec fastlane release
+        fastlane release
