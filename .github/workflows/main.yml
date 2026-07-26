@@ -23,9 +23,9 @@ jobs:
         npm run build --if-present
         npx cap sync ios
 
-    - name: Install Fastlane Globally
+    - name: Install Fastlane cleanly
       run: |
-        brew install fastlane
+        sudo gem install fastlane -N
 
     - name: Publish to App Store Connect
       env:
@@ -34,4 +34,4 @@ jobs:
         APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
       run: |
         cd ios
-        fastlane release
+        bundle exec fastlane release || fastlane release
