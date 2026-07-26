@@ -17,21 +17,12 @@ jobs:
       with:
         node-version: '20'
 
-    - name: Install dependencies & Build Web
+    - name: Install and Build
       run: |
         npm install
         npm run build --if-present
         npx cap sync ios
 
-    - name: Install Fastlane cleanly
+    - name: Verify iOS Project Structure
       run: |
-        sudo gem install fastlane -N
-
-    - name: Publish to App Store Connect
-      env:
-        APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.ASC_KEY_ID }}
-        APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
-        APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.ASC_PRIVATE_KEY }}
-      run: |
-        cd ios
-        bundle exec fastlane release || fastlane release
+        ls -la ios/App
