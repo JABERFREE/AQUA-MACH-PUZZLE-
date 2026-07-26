@@ -1,0 +1,15 @@
+{
+  "name": "AQUA MATCH PUZZLE",
+  "revisionLabel": "Implement dynamic fish collection objectives per level",
+  "description": "Forked from Rosebud AI Universal Project",
+  "mode": "Universal",
+  "exportDate": "2026-07-25T17:38:45.006Z",
+  "rosebudBuiltInSplash": {
+    "present": true,
+    "version": 1
+  },
+  "assetCount": 71,
+  "assetTypes": [
+    "image"
+  ]
+}
