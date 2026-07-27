@@ -23,11 +23,13 @@ jobs:
       - name: Build web assets
         run: npm run build --if-present
 
-      - name: Recreate iOS Platform Cleanly
+      - name: Verify Workspace and Sync iOS
         run: |
-          node -e "fs.rmSync('ios', { recursive: true, force: true });"
-          node ./node_modules/@capacitor/cli/bin/capacitor add ios
-          node ./node_modules/@capacitor/cli/bin/capacitor sync ios
+          npx cap sync ios
+
+      - name: Check Directory Contents
+        run: |
+          ls -la ios/App || true
 
       - name: Build iOS Archive
         run: |
