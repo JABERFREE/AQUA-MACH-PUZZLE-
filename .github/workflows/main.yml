@@ -30,10 +30,9 @@ jobs:
 
     - name: Build iOS Archive
       run: |
-        cd ios/App
-        xcodebuild -workspace App.xcworkspace \
-                   -scheme App \
-                   -configuration Release \
-                   -archivePath $PWD/build/App.xcarchive \
-                   archive \
-                   CODE_SIGN_STYLE="Automatic"
+        xcodebuild -workspace ios/App/App.xcworkspace \
+          -scheme App \
+          -configuration Release \
+          -archivePath ios/App/build/App.xcarchive \
+          archive \
+          CODE_SIGN_STYLE="Automatic"
