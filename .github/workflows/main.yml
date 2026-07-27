@@ -27,8 +27,8 @@ jobs:
 
       - name: Add and Sync iOS platform
         run: |
-          npx cap add ios || true
-          npx cap sync ios
+          npx @capacitor/cli add ios || true
+          npx @capacitor/cli sync ios
 
       - name: Build iOS Archive
         run: |
