@@ -23,22 +23,17 @@ jobs:
       - name: Build web assets
         run: npm run build --if-present
 
-      - name: Initialize Capacitor iOS
+      - name: Fix Permissions and Sync iOS
         run: |
-          npx cap init --force || true
-          node ./node_modules/@capacitor/cli/bin/capacitor add ios || true
-          node ./node_modules/@capacitor/cli/bin/capacitor sync ios
+          chmod +x node_modules/.bin/cap || true
+          npx cap sync ios
 
       - name: Build iOS Archive
-      run: |
-        cd ios/App
-        xcodebuild -workspace App.xcworkspace \
-          -scheme App \
-          -configuration Release \
-          -archivePath build/App.xcarchive \
-          archive \
-          CODE_SIGN_STYLE="Automatic"
-          -configuration Release \
-          -archivePath ios/App/build/App.xcarchive \
-          archive \
-          CODE_SIGN_STYLE=Automatic
+        run: |
+          cd ios/App
+          xcodebuild -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -archivePath build/App.xcarchive \
+            archive \
+            CODE_SIGN_STYLE="Automatic"
