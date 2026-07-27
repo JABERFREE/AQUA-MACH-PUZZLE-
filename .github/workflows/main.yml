@@ -23,8 +23,9 @@ jobs:
       - name: Build web assets
         run: npm run build --if-present
 
-      - name: Add iOS Platform and Sync
+      - name: Fix Permissions and Add iOS Platform
         run: |
+          chmod +x node_modules/.bin/cap || true
           npx cap add ios || true
           npx cap sync ios
 
