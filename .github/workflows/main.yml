@@ -25,9 +25,9 @@ jobs:
 
       - name: Recreate iOS Platform Cleanly
         run: |
-          npx rimraf ios
-          npx cap add ios
-          npx cap sync ios
+          npx --yes rimraf ios
+          npx --yes @capacitor/cli add ios
+          npx --yes @capacitor/cli sync ios
 
       - name: Build iOS Archive
         run: |
