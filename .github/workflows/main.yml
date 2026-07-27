@@ -1,11 +1,11 @@
-name: Build iOS App
+name: Build and Upload to App Store
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-  build:
+  build-and-upload:
     runs-on: macos-14
 
     steps:
@@ -27,3 +27,13 @@ jobs:
       run: |
         chmod +x node_modules/.bin/cap || true
         npx cap sync ios
+
+    - name: Build iOS Archive
+      run: |
+        cd ios/App
+        xcodebuild -workspace App.xcworkspace \
+                   -scheme App \
+                   -configuration Release \
+                   -archivePath $PWD/build/App.xcarchive \
+                   archive \
+                   CODE_SIGN_STYLE="Automatic"
