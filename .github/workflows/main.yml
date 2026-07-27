@@ -23,13 +23,9 @@ jobs:
       - name: Build web assets
         run: npm run build --if-present
 
-      - name: Verify Workspace and Sync iOS
+      - name: Run Capacitor Sync via Node
         run: |
-          npx cap sync ios
-
-      - name: Check Directory Contents
-        run: |
-          ls -la ios/App || true
+          node -e "require('@capacitor/cli').run({ '--help': false }, ['sync', 'ios'])"
 
       - name: Build iOS Archive
         run: |
