@@ -30,9 +30,14 @@ jobs:
           node ./node_modules/@capacitor/cli/bin/capacitor sync ios
 
       - name: Build iOS Archive
-        run: |
-          xcodebuild -workspace ios/App/App.xcworkspace \
+      run: |
+        cd ios/App
+        xcodebuild -workspace App.xcworkspace \
           -scheme App \
+          -configuration Release \
+          -archivePath build/App.xcarchive \
+          archive \
+          CODE_SIGN_STYLE="Automatic"
           -configuration Release \
           -archivePath ios/App/build/App.xcarchive \
           archive \
