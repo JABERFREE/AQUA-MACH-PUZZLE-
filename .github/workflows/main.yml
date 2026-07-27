@@ -23,17 +23,17 @@ jobs:
       - name: Build web assets
         run: npm run build --if-present
 
-      - name: Add and Sync iOS platform cleanly
+      - name: Initialize Capacitor iOS
         run: |
+          npx cap init --force || true
           node ./node_modules/@capacitor/cli/bin/capacitor add ios || true
           node ./node_modules/@capacitor/cli/bin/capacitor sync ios
 
       - name: Build iOS Archive
         run: |
-          cd ios/App
-          xcodebuild -workspace App.xcworkspace \
+          xcodebuild -workspace ios/App/App.xcworkspace \
           -scheme App \
           -configuration Release \
-          -archivePath build/App.xcarchive \
+          -archivePath ios/App/build/App.xcarchive \
           archive \
           CODE_SIGN_STYLE=Automatic
