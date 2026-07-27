@@ -26,8 +26,8 @@ jobs:
       - name: Recreate iOS Platform Cleanly
         run: |
           node -e "fs.rmSync('ios', { recursive: true, force: true });"
-          npx @capacitor/cli add ios
-          npx @capacitor/cli sync ios
+          node ./node_modules/@capacitor/cli/bin/capacitor add ios
+          node ./node_modules/@capacitor/cli/bin/capacitor sync ios
 
       - name: Build iOS Archive
         run: |
