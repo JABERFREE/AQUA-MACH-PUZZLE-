@@ -23,10 +23,10 @@ jobs:
       - name: Build web assets
         run: npm run build --if-present
 
-      - name: Add and Sync iOS platform
+      - name: Add and Sync iOS platform safely
         run: |
-          npx @capacitor/cli@latest add ios || true
-          npx @capacitor/cli@latest sync ios
+          npx --no-install cap add ios || true
+          npx --no-install cap sync ios || npx cap sync ios
 
       - name: Build iOS Archive
         run: |
