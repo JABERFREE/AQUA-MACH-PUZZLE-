@@ -25,7 +25,10 @@ jobs:
 
       - name: Fix Permissions and Sync iOS
         run: |
-         - name: Build iOS Archive
+          chmod +x node_modules/.bin/cap || true
+          npx cap sync ios
+
+      - name: Build iOS Archive
         run: |
           xcodebuild -workspace ios/App/App.xcworkspace \
             -scheme App \
@@ -33,7 +36,3 @@ jobs:
             -archivePath ios/App/build/App.xcarchive \
             archive \
             CODE_SIGN_STYLE="Automatic"
-
-      - name: Build iOS Archive
-
-"
